@@ -1,0 +1,6 @@
+<Image 
+    src="/logo_light.png"  // Note: path starts from public folder
+    alt="Description"
+    width={500}
+    height={300}
+/>

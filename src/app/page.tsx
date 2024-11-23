@@ -3,7 +3,6 @@
 import * as React from "react"
 import { Camera, Moon, Sun, Home, BarChart2, UserCircle, Settings, PlusCircle } from 'lucide-react'
 import { useTheme } from "next-themes"
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { Button } from "@/components/ui/button"
@@ -56,11 +55,10 @@ export default function HomePage() {
       <div className="max-w-5xl mx-auto space-y-8">
         <header className="flex justify-between items-center bg-white/70 dark:bg-gray-800/70 backdrop-blur-md p-4 rounded-lg shadow-md">
           <div className="h-12 relative w-40">
-            <Image 
+            <img 
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/MERiCADO__3_-removebg-preview%20(1)-7Awc9U6qGZffuh9K9tusvjUIV0gcCj.png" 
               alt="2DAY // 2MRW" 
-              layout="fill"
-              objectFit="contain"
+              className="w-full h-full object-contain"
             />
           </div>
           <div className="flex items-center space-x-4">
