@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Moon, Sun, Home, BarChart2, UserCircle, Settings, PlusCircle } from 'lucide-react'
+import { Moon, Sun, Home, BarChart2, UserCircle, Settings, PlusCircle, ChevronDown } from 'lucide-react'
 import { useTheme } from "next-themes"
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,6 +12,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
 import { Badge } from "@/components/ui/badge"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 export default function ProfilePage() {
   const { setTheme, theme } = useTheme()
@@ -22,6 +29,7 @@ export default function ProfilePage() {
     plan1: "Top 2 Tasks",
   })
   const [editingQuestion, setEditingQuestion] = React.useState("")
+  const [selectedGoal, setSelectedGoal] = React.useState("App Development")
 
   React.useEffect(() => {
     setMounted(true)
@@ -37,7 +45,7 @@ export default function ProfilePage() {
   const contributions = Array.from({ length: 365 }, (_, i) => i + 1)
 
   return (
-    <div className="min-h-screen p-4 pb-24 bg-gradient-to-b from-background to-blue-50 dark:from-gray-900 dark:to-gray-800 text-foreground">
+    <div className="min-h-screen p-4 pb-32 bg-gradient-to-b from-background to-blue-50 dark:from-gray-900 dark:to-gray-800 text-foreground">
       <style jsx global>{`
         body {
           font-family: Georgia, serif;
@@ -72,6 +80,20 @@ export default function ProfilePage() {
             </div>
           </div>
         </header>
+
+        <div className="w-full max-w-xs">
+          <Select value={selectedGoal} onValueChange={setSelectedGoal}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a goal" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="App Development">App Development</SelectItem>
+              <SelectItem value="Workout">Workout</SelectItem>
+              <SelectItem value="Business">Business</SelectItem>
+              <SelectItem value="Personal Goal">Personal Goal</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
 
         <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white/70 dark:bg-gray-800/70 backdrop-blur-md">
           <div className="grid grid-cols-2 divide-x divide-gray-200 dark:divide-gray-700">
@@ -152,34 +174,6 @@ export default function ProfilePage() {
           </div>
         </Card>
 
-        <div className="relative">
-          <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white/70 dark:bg-gray-800/70 backdrop-blur-md">
-            <CardHeader className="bg-yellow-50/70 dark:bg-yellow-900/70 rounded-t-lg py-2">
-              <CardTitle className="text-lg font-bold text-yellow-800 dark:text-yellow-200">Hours Committed</CardTitle>
-            </CardHeader>
-            <CardContent className="p-4 flex flex-col items-center justify-center space-y-2">
-              <div className="flex space-x-2">
-                <select className="bg-transparent border rounded p-1 text-sm">
-                  {Array.from({ length: 20 }, (_, i) => i + 1).map((hour) => (
-                    <option key={hour} value={hour}>{hour} hr</option>
-                  ))}
-                </select>
-                <select className="bg-transparent border rounded p-1 text-sm">
-                  {[15, 30, 45].map((minute) => (
-                    <option key={minute} value={minute}>{minute} min</option>
-                  ))}
-                </select>
-              </div>
-            </CardContent>
-          </Card>
-          <Button
-            className="absolute left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-md px-4 py-2 rounded-full"
-            style={{ bottom: "-1.5rem" }}
-          >
-            Save
-          </Button>
-        </div>
-
         <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 w-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-md mt-4">
           <CardHeader className="bg-purple-50/70 dark:bg-purple-900/70 rounded-t-lg py-3">
             <div className="flex justify-between items-center">
@@ -209,7 +203,8 @@ export default function ProfilePage() {
                   {days.map((_, dayIndex) => (
                     <div key={dayIndex} className="flex space-x-1">
                       {Array.from({ length: 52 }, (_, weekIndex) => {
-                        const hasContribution = contributions[`${weekIndex}-${dayIndex}`]
+                        const contributionIndex = weekIndex * 7 + dayIndex
+                        const hasContribution = contributions[contributionIndex]
                         return (
                           <div
                             key={`${weekIndex}-${dayIndex}`}
@@ -230,11 +225,21 @@ export default function ProfilePage() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white/70 dark:bg-gray-800/70 backdrop-blur-md relative">
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white/70 dark:bg-gray-800/70 backdrop-blur-md">
+          <CardHeader className="bg-yellow-50/70 dark:bg-yellow-900/70 rounded-t-lg py-2">
+            <CardTitle className="text-lg font-bold text-yellow-800 dark:text-yellow-200">Hours Committed</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 flex flex-col items-center justify-center space-y-2">
+            <div className="text-3xl font-bold">Total: 120 hours</div>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Last updated: 11/23/2024</p>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white/70 dark:bg-gray-800/70 backdrop-blur-md relative mb-16">
           <CardHeader className="bg-orange-50/70 dark:bg-orange-900/70 rounded-t-lg py-2">
             <CardTitle className="text-xl font-bold text-orange-800 dark:text-orange-200">Recent Updates</CardTitle>
           </CardHeader>
-          <CardContent className="p-2 pb-8">
+          <CardContent className="p-2 pb-16">
             <div className="space-y-2">
               {[
                 { title: "Added user authentication", date: "11/18/2024", category: "Feature" },
@@ -255,7 +260,7 @@ export default function ProfilePage() {
             </div>
           </CardContent>
           <Button
-            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-gradient-to-r from-orange-500 to-orange-700 text-white shadow-md px-4 py-2 rounded-full"
+            className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-orange-500 to-orange-700 text-white shadow-md px-4 py-2 rounded-full"
           >
             View All
           </Button>
