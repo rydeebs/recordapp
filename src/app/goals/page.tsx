@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Moon, Sun, Home, BarChart2, UserCircle, Settings, PlusCircle, ChevronDown } from 'lucide-react'
+import { Moon, Sun, Home, BarChart2, UserCircle, Settings, PlusCircle, ChevronDown, Goal } from 'lucide-react'
 import { useTheme } from "next-themes"
 import Image from 'next/image'
 import Link from 'next/link'
@@ -45,14 +45,25 @@ export default function ProfilePage() {
   const contributions = Array.from({ length: 365 }, (_, i) => i + 1)
 
   return (
-    <div className="min-h-screen p-4 pb-32 bg-gradient-to-b from-background to-blue-50 dark:from-gray-900 dark:to-gray-800 text-foreground">
+    <div className="min-h-screen p-4 pb-24 bg-gradient-to-b from-background to-blue-50 dark:from-gray-900 dark:to-gray-800">
       <style jsx global>{`
         body {
           font-family: Georgia, serif;
         }
-        h2, h3, h4, h5, h6 {
-          font-size: 0.875rem;
-          line-height: 1.25rem;
+        h1, h2 {
+          color: #164E98;
+        }
+        h3, h4, h5, h6, p, span, div {
+          color: black;
+        }
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, .dark p, .dark span, .dark div {
+          color: white;
+        }
+        [role="combobox"], [role="option"] {
+          color: black;
+        }
+        .dark [role="combobox"], .dark [role="option"] {
+          color: white;
         }
       `}</style>
       <div className="max-w-5xl mx-auto space-y-8">
@@ -65,35 +76,28 @@ export default function ProfilePage() {
               objectFit="contain"
             />
           </div>
-          <div className="flex items-center space-x-4">
-            <Button variant="outline" size="sm" className="flex items-center space-x-2">
-              <PlusCircle className="h-4 w-4" />
-              <span>New Goal</span>
-            </Button>
-            <div className="flex items-center space-x-2 bg-gray-100/70 dark:bg-gray-700/70 backdrop-blur-md p-1 rounded-full">
-              <Sun className="h-4 w-4 text-yellow-500" />
-              <Switch
-                checked={theme === "dark"}
-                onCheckedChange={() => setTheme(theme === "light" ? "dark" : "light")}
-              />
-              <Moon className="h-4 w-4 text-blue-500" />
-            </div>
+          <div className="flex items-center space-x-2 bg-gray-100/70 dark:bg-gray-700/70 backdrop-blur-md p-1 rounded-full">
+            <Sun className="h-4 w-4 text-yellow-500" />
+            <Switch
+              checked={theme === "dark"}
+              onCheckedChange={() => setTheme(theme === "light" ? "dark" : "light")}
+            />
+            <Moon className="h-4 w-4 text-blue-500" />
+          </div>
+          <div className="w-[180px]">
+            <Select>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a goal" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="App Development">App Development</SelectItem>
+                <SelectItem value="Workout">Workout</SelectItem>
+                <SelectItem value="Business">Business</SelectItem>
+                <SelectItem value="Personal Goal">Personal Goal</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </header>
-
-        <div className="w-full max-w-xs">
-          <Select value={selectedGoal} onValueChange={setSelectedGoal}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a goal" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="App Development">App Development</SelectItem>
-              <SelectItem value="Workout">Workout</SelectItem>
-              <SelectItem value="Business">Business</SelectItem>
-              <SelectItem value="Personal Goal">Personal Goal</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
 
         <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white/70 dark:bg-gray-800/70 backdrop-blur-md">
           <div className="grid grid-cols-2 divide-x divide-gray-200 dark:divide-gray-700">
@@ -275,18 +279,22 @@ export default function ProfilePage() {
                   <span className="text-sm">Home</span>
                 </Button>
               </Link>
+              <Link href="/insights">
+                <Button variant="ghost" size="sm" className="flex flex-col items-center">
+                  <BarChart2 className="h-7 w-7 mb-1" />
+                  <span className="text-sm">Insights</span>
+                </Button>
+              </Link>
               <Button variant="ghost" size="sm" className="flex flex-col items-center">
-                <BarChart2 className="h-7 w-7 mb-1" />
-                <span className="text-sm">Insights</span>
+                <Goal className="h-7 w-7 mb-1" />
+                <span className="text-sm">Goals</span>
               </Button>
-              <Button variant="ghost" size="sm" className="flex flex-col items-center">
-                <UserCircle className="h-7 w-7 mb-1" />
-                <span className="text-sm">Profile</span>
-              </Button>
-              <Button variant="ghost" size="sm" className="flex flex-col items-center">
-                <Settings className="h-7 w-7 mb-1" />
-                <span className="text-sm">Settings</span>
-              </Button>
+              <Link href="/settings">
+                <Button variant="ghost" size="sm" className="flex flex-col items-center">
+                  <Settings className="h-7 w-7 mb-1" />
+                  <span className="text-sm">Settings</span>
+                </Button>
+              </Link>
             </div>
           </nav>
         </div>

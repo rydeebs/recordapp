@@ -37,10 +37,19 @@ export default function HomePage() {
   }, [])
 
   return (
-    <div className="min-h-screen p-4 pb-24 bg-gradient-to-b from-background to-blue-50 dark:from-gray-900 dark:to-gray-800 text-black dark:text-white">
+    <div className="min-h-screen p-4 pb-24 bg-gradient-to-b from-background to-blue-50 dark:from-gray-900 dark:to-gray-800">
       <style jsx global>{`
         body {
           font-family: Georgia, serif;
+        }
+        h1, h2 {
+          color: #164E98;
+        }
+        h3, h4, h5, h6, p, span, div {
+          color: black;
+        }
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, .dark p, .dark span, .dark div {
+          color: white;
         }
         @keyframes lavaLamp {
           0% { background-position: 0% 50%; }
@@ -62,6 +71,12 @@ export default function HomePage() {
         }
         .flip-text {
           animation: flipOut 0.25s ease-out, flipIn 0.25s ease-in 0.25s;
+        }
+        [role="combobox"], [role="option"] {
+          color: black;
+        }
+        .dark [role="combobox"], .dark [role="option"] {
+          color: white;
         }
       `}</style>
       <div className="max-w-5xl mx-auto space-y-12">
@@ -126,20 +141,24 @@ export default function HomePage() {
                 <Home className="h-7 w-7 mb-1" />
                 <span className="text-sm">Home</span>
               </Button>
-              <Button variant="ghost" size="sm" className="flex flex-col items-center">
-                <BarChart2 className="h-7 w-7 mb-1" />
-                <span className="text-sm">Insights</span>
-              </Button>
-              <Link href="/profile">
+              <Link href="/insights">
+                <Button variant="ghost" size="sm" className="flex flex-col items-center">
+                  <BarChart2 className="h-7 w-7 mb-1" />
+                  <span className="text-sm">Insights</span>
+                </Button>
+              </Link>
+              <Link href="/goals">
                 <Button variant="ghost" size="sm" className="flex flex-col items-center">
                   <Goal className="h-7 w-7 mb-1" />
                   <span className="text-sm">Goals</span>
                 </Button>
               </Link>
-              <Button variant="ghost" size="sm" className="flex flex-col items-center">
-                <Settings className="h-7 w-7 mb-1" />
-                <span className="text-sm">Settings</span>
-              </Button>
+              <Link href="/settings">
+                <Button variant="ghost" size="sm" className="flex flex-col items-center">
+                  <Settings className="h-7 w-7 mb-1" />
+                  <span className="text-sm">Settings</span>
+                </Button>
+              </Link>
             </div>
           </nav>
         </div>

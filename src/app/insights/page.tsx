@@ -16,7 +16,27 @@ export default function InsightsPage() {
   const { setTheme, theme } = useTheme()
 
   return (
-    <div className="min-h-screen p-4 pb-24 bg-gradient-to-b from-background to-blue-50 dark:from-gray-900 dark:to-gray-800 text-foreground">
+    <div className="min-h-screen p-4 pb-24 bg-gradient-to-b from-background to-blue-50 dark:from-gray-900 dark:to-gray-800">
+      <style jsx global>{`
+        body {
+          font-family: Georgia, serif;
+        }
+        h1, h2 {
+          color: #164E98;
+        }
+        h3, h4, h5, h6, p, span, div {
+          color: black;
+        }
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, .dark p, .dark span, .dark div {
+          color: white;
+        }
+        [role="combobox"], [role="option"] {
+          color: black;
+        }
+        .dark [role="combobox"], .dark [role="option"] {
+          color: white;
+        }
+      `}</style>
       <div className="max-w-5xl mx-auto space-y-8">
         <header className="flex justify-between items-center bg-white/70 dark:bg-gray-800/70 backdrop-blur-md p-4 rounded-lg shadow-md">
           <div className="h-12 relative w-40">
@@ -232,16 +252,18 @@ export default function InsightsPage() {
                 <BarChart2 className="h-7 w-7 mb-1" />
                 <span className="text-sm">Insights</span>
               </Button>
-              <Link href="/profile">
+              <Link href="/goals">
                 <Button variant="ghost" size="sm" className="flex flex-col items-center">
                   <Goal className="h-7 w-7 mb-1" />
                   <span className="text-sm">Goals</span>
                 </Button>
               </Link>
-              <Button variant="ghost" size="sm" className="flex flex-col items-center">
-                <Settings className="h-7 w-7 mb-1" />
-                <span className="text-sm">Settings</span>
-              </Button>
+              <Link href="/settings">
+                <Button variant="ghost" size="sm" className="flex flex-col items-center">
+                  <Settings className="h-7 w-7 mb-1" />
+                  <span className="text-sm">Settings</span>
+                </Button>
+              </Link>
             </div>
           </nav>
         </div>
