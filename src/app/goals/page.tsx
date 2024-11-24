@@ -1,11 +1,10 @@
 "use client"
 
 import * as React from "react"
-import { Moon, Sun, Home, BarChart2, UserCircle, Settings, PlusCircle, ChevronDown, Goal } from 'lucide-react'
+import { Home, BarChart2, Goal, Settings, Flame, ArrowUp, ArrowDown, Clock, Calendar, FileText, PlusCircle, Sun, Moon } from 'lucide-react'
 import { useTheme } from "next-themes"
 import Image from 'next/image'
 import Link from 'next/link'
-
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -64,6 +63,12 @@ export default function ProfilePage() {
         }
         .dark [role="combobox"], .dark [role="option"] {
           color: white;
+        }
+        [role="listbox"] {
+          background-color: white !important;
+        }
+        .dark [role="listbox"] {
+          background-color: #1f2937 !important;
         }
       `}</style>
       <div className="max-w-5xl mx-auto space-y-8">
@@ -293,6 +298,12 @@ export default function ProfilePage() {
                 <Button variant="ghost" size="sm" className="flex flex-col items-center">
                   <Settings className="h-7 w-7 mb-1" />
                   <span className="text-sm">Settings</span>
+                </Button>
+              </Link>
+              <Link href="/progress">
+                <Button variant="ghost" size="sm" className="flex flex-col items-center">
+                  <BarChart2 className="h-7 w-7 mb-1" />
+                  <span className="text-sm">Progress</span>
                 </Button>
               </Link>
             </div>

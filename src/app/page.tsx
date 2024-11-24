@@ -1,11 +1,10 @@
 "use client"
 
 import * as React from "react"
-import { Camera, Moon, Sun, Home, BarChart2, Goal, Settings } from 'lucide-react'
+import { Home, BarChart2, Goal, Settings, Flame, ArrowUp, ArrowDown, Clock, Calendar, FileText, PlusCircle, Sun, Moon } from 'lucide-react'
 import { useTheme } from "next-themes"
 import Image from 'next/image'
 import Link from 'next/link'
-
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import {
@@ -15,6 +14,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
+
+const firebaseConfig = {
+  // Your Firebase config object from Replit
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize services
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
 
 export default function HomePage() {
   const { setTheme, theme } = useTheme()
@@ -78,6 +99,12 @@ export default function HomePage() {
         .dark [role="combobox"], .dark [role="option"] {
           color: white;
         }
+        [role="listbox"] {
+          background-color: white !important;
+        }
+        .dark [role="listbox"] {
+          background-color: #1f2937 !important;
+        }
       `}</style>
       <div className="max-w-5xl mx-auto space-y-12">
         <header className="flex justify-between items-center bg-white/70 dark:bg-gray-800/70 backdrop-blur-md p-4 rounded-lg shadow-md">
@@ -112,7 +139,7 @@ export default function HomePage() {
                 <SelectItem value="Personal Goal">Personal Goal</SelectItem>
                 <SelectItem value="new" className="text-primary">
                   <div className="flex items-center">
-                    <Camera className="mr-2 h-4 w-4" />
+                    <PlusCircle className="mr-2 h-4 w-4" />
                     <span>New Goal</span>
                   </div>
                 </SelectItem>
@@ -124,19 +151,18 @@ export default function HomePage() {
         <div className="flex flex-col items-center justify-center flex-grow min-h-[calc(100vh-16rem)]">
           <Button
             size="lg"
-            className="w-60 h-60 rounded-full lava-lamp text-white font-bold text-3xl shadow-lg hover:shadow-xl transition-all duration-300 mb-8"
+            className="w-60 h-60 rounded-full lava-lamp font-bold text-3xl shadow-lg hover:shadow-xl transition-all duration-300 mb-8"
           >
-            <Camera className="w-24 h-24 mb-4" />
-            <span>Record</span>
+            <span className="text-white">Record</span>
           </Button>
-          <p className="mt-4 text-lg italic text-black dark:text-gray-400">
-            Record <span key={recordText} className="flip-text inline-block">{recordText}</span> Updates Here
+          <p className="mt-4 text-lg italic text-gray-600">
+            Record <span key={recordText} className="flip-text inline-block text-gray-600">{recordText}</span> Updates Here
           </p>
         </div>
 
         <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-full max-w-5xl">
           <nav className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-md p-4 rounded-lg shadow-lg">
-            <div className="flex justify-around text-black dark:text-white">
+            <div className="flex justify-around">
               <Button variant="ghost" size="sm" className="flex flex-col items-center">
                 <Home className="h-7 w-7 mb-1" />
                 <span className="text-sm">Home</span>
@@ -157,6 +183,12 @@ export default function HomePage() {
                 <Button variant="ghost" size="sm" className="flex flex-col items-center">
                   <Settings className="h-7 w-7 mb-1" />
                   <span className="text-sm">Settings</span>
+                </Button>
+              </Link>
+              <Link href="/progress">
+                <Button variant="ghost" size="sm" className="flex flex-col items-center">
+                  <BarChart2 className="h-7 w-7 mb-1" />
+                  <span className="text-sm">Progress</span>
                 </Button>
               </Link>
             </div>

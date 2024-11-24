@@ -36,6 +36,12 @@ export default function InsightsPage() {
         .dark [role="combobox"], .dark [role="option"] {
           color: white;
         }
+        [role="listbox"] {
+          background-color: white !important;
+        }
+        .dark [role="listbox"] {
+          background-color: #1f2937 !important;
+        }
       `}</style>
       <div className="max-w-5xl mx-auto space-y-8">
         <header className="flex justify-between items-center bg-white/70 dark:bg-gray-800/70 backdrop-blur-md p-4 rounded-lg shadow-md">
@@ -262,6 +268,12 @@ export default function InsightsPage() {
                 <Button variant="ghost" size="sm" className="flex flex-col items-center">
                   <Settings className="h-7 w-7 mb-1" />
                   <span className="text-sm">Settings</span>
+                </Button>
+              </Link>
+              <Link href="/progress">
+                <Button variant="ghost" size="sm" className="flex flex-col items-center">
+                  <BarChart2 className="h-7 w-7 mb-1" />
+                  <span className="text-sm">Progress</span>
                 </Button>
               </Link>
             </div>

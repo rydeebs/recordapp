@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Home, BarChart2, Goal, Settings, Sun, Moon, PlusCircle } from 'lucide-react'
+import { Home, BarChart2, Goal, Settings, Flame, ArrowUp, ArrowDown, Clock, Calendar, FileText, PlusCircle, Sun, Moon } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useTheme } from "next-themes"
@@ -36,6 +36,12 @@ export default function SettingsPage() {
         }
         .dark [role="combobox"], .dark [role="option"] {
           color: white;
+        }
+        [role="listbox"] {
+          background-color: white !important;
+        }
+        .dark [role="listbox"] {
+          background-color: #1f2937 !important;
         }
       `}</style>
       <div className="max-w-5xl mx-auto space-y-8">
@@ -184,6 +190,12 @@ export default function SettingsPage() {
                 <Settings className="h-7 w-7 mb-1" />
                 <span className="text-sm">Settings</span>
               </Button>
+              <Link href="/progress">
+                <Button variant="ghost" size="sm" className="flex flex-col items-center">
+                  <BarChart2 className="h-7 w-7 mb-1" />
+                  <span className="text-sm">Progress</span>
+                </Button>
+              </Link>
             </div>
           </nav>
         </div>
