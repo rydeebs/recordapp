@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { GoalSelector } from "@/components/GoalSelector";
 
 export default function ProfilePage() {
   const { setTheme, theme } = useTheme()
@@ -89,19 +90,7 @@ export default function ProfilePage() {
             />
             <Moon className="h-4 w-4 text-blue-500" />
           </div>
-          <div className="w-[180px]">
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Select a goal" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="App Development">App Development</SelectItem>
-                <SelectItem value="Workout">Workout</SelectItem>
-                <SelectItem value="Business">Business</SelectItem>
-                <SelectItem value="Personal Goal">Personal Goal</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          <GoalSelector />
         </header>
 
         <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white/70 dark:bg-gray-800/70 backdrop-blur-md">
@@ -279,31 +268,43 @@ export default function ProfilePage() {
           <nav className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-md p-4 rounded-lg shadow-lg">
             <div className="flex justify-around">
               <Link href="/">
-                <Button variant="ghost" size="sm" className="flex flex-col items-center">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="flex flex-col items-center hover:shadow-md transition-shadow duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                >
                   <Home className="h-7 w-7 mb-1" />
                   <span className="text-sm">Home</span>
                 </Button>
               </Link>
               <Link href="/insights">
-                <Button variant="ghost" size="sm" className="flex flex-col items-center">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="flex flex-col items-center hover:shadow-md transition-shadow duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                >
                   <BarChart2 className="h-7 w-7 mb-1" />
                   <span className="text-sm">Insights</span>
                 </Button>
               </Link>
-              <Button variant="ghost" size="sm" className="flex flex-col items-center">
-                <Goal className="h-7 w-7 mb-1" />
-                <span className="text-sm">Goals</span>
-              </Button>
-              <Link href="/settings">
-                <Button variant="ghost" size="sm" className="flex flex-col items-center">
-                  <Settings className="h-7 w-7 mb-1" />
-                  <span className="text-sm">Settings</span>
+              <Link href="/goals">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="flex flex-col items-center hover:shadow-md transition-shadow duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                >
+                  <Goal className="h-7 w-7 mb-1" />
+                  <span className="text-sm">Goals</span>
                 </Button>
               </Link>
-              <Link href="/progress">
-                <Button variant="ghost" size="sm" className="flex flex-col items-center">
-                  <BarChart2 className="h-7 w-7 mb-1" />
-                  <span className="text-sm">Progress</span>
+              <Link href="/settings">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="flex flex-col items-center hover:shadow-md transition-shadow duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                >
+                  <Settings className="h-7 w-7 mb-1" />
+                  <span className="text-sm">Settings</span>
                 </Button>
               </Link>
             </div>

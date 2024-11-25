@@ -1,55 +1,39 @@
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+export const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+  dangerouslyAllowBrowser: true
 });
 
-export async function transcribeVideo(audioBlob: Blob): Promise<string> {
+export async function transcribeAudio(audioFile: Blob): Promise<string> {
   try {
-    const transcript = await openai.audio.transcriptions.create({
-      file: audioBlob,
+    const transcription = await openai.audio.transcriptions.create({
+      file: audioFile,
       model: "whisper-1"
     });
-    return transcript.text;
+    return transcription.text;
   } catch (error) {
     console.error('Transcription error:', error);
     throw error;
   }
 }
 
-export async function analyzeTranscript(transcript: string) {
+export async function analyzeContent(text: string): Promise<string> {
   try {
     const analysis = await openai.chat.completions.create({
-      model: "gpt-4-turbo-preview",
+      model: "gpt-4",
       messages: [
         {
           role: "system",
-          content: `Analyze this daily progress update and extract:
-          1. Today's Progress:
-          - Accomplishments (completed tasks)
-          - Misses (incomplete tasks)
-          
-          2. Tomorrow's Plans:
-          - Top 2 priority tasks
-          
-          3. Patterns:
-          - Most productive time periods
-          - Best performing days
-          - Time management patterns
-          
-          4. Recommendations:
-          - Actionable suggestions based on patterns
-          - Specific improvements with percentages`
+          content: "Analyze the following goal update for confidence, clarity, pace, and engagement. Provide scores from 0-100 for each metric."
         },
         {
           role: "user",
-          content: transcript
+          content: text
         }
-      ],
-      response_format: { type: "json_object" }
+      ]
     });
-
-    return JSON.parse(analysis.choices[0].message.content);
+    return analysis.choices[0].message.content;
   } catch (error) {
     console.error('Analysis error:', error);
     throw error;
