@@ -8,8 +8,8 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        'dark-primary': '#001B40',
+      fontFamily: {
+        raimond: ['Raimond', 'sans-serif'],
       },
     },
   },

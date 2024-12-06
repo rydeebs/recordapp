@@ -1,0 +1,16 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/day2mrw.firebasestorage.app/o {
+    match /{allPaths=**} {
+      allow read, write: if request.auth != null;
+      
+      options {
+        cors: {
+          origin: ['*'],
+          methods: ['GET', 'POST', 'PUT', 'DELETE', 'HEAD'],
+          headers: ['Content-Type', 'Authorization']
+        }
+      }
+    }
+  }
+} 

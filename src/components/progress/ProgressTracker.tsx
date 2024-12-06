@@ -8,7 +8,7 @@ import {
   Camera, Play, Square, BarChart, Calendar, Clock, Target, 
   ArrowUp, Zap, Check, X, Hourglass, Calendar as CalendarIcon 
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
 export function ProgressTracker() {

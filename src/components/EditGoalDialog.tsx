@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useGoal } from '@/context/GoalContext'
 
 interface EditGoalDialogProps {
   goal: Goal;
@@ -24,6 +25,7 @@ interface EditGoalDialogProps {
 }
 
 export function EditGoalDialog({ goal, isOpen, onClose, onGoalUpdated }: EditGoalDialogProps) {
+  const { setSelectedGoal } = useGoal()
   const [isLoading, setIsLoading] = React.useState(false)
   const [error, setError] = React.useState("")
   const [formData, setFormData] = React.useState({
@@ -54,6 +56,7 @@ export function EditGoalDialog({ goal, isOpen, onClose, onGoalUpdated }: EditGoa
         updatedAt: new Date(),
       }
 
+      setSelectedGoal(updatedGoal)
       onGoalUpdated?.(updatedGoal)
       onClose()
     } catch (error) {
@@ -110,17 +113,16 @@ export function EditGoalDialog({ goal, isOpen, onClose, onGoalUpdated }: EditGoa
             </label>
             <Select
               value={formData.status}
-              onValueChange={(value) => setFormData(prev => ({ ...prev, status: value }))}
-              className="w-full"
+              onValueChange={(value: "active" | "completed" | "archived") => setFormData(prev => ({ ...prev, status: value }))}
               required
             >
               <SelectTrigger>
                 <SelectValue placeholder="Select goal status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="pending">Pending</SelectItem>
-                <SelectItem value="in progress">In Progress</SelectItem>
+                <SelectItem value="active">Active</SelectItem>
                 <SelectItem value="completed">Completed</SelectItem>
+                <SelectItem value="archived">Archived</SelectItem>
               </SelectContent>
             </Select>
           </div>

@@ -1,15 +1,8 @@
-import { Inter } from "next/font/google"
-import { ThemeProvider } from "next-themes"
-import "./globals.css"
-import { cn } from "@/lib/utils"
-import { AuthProvider } from '@/components/AuthProvider';
+"use client"
 
-const inter = Inter({ subsets: ["latin"] })
-
-export const metadata = {
-  title: "2DAY // 2MRW",
-  description: "Daily and tomorrow planning app",
-}
+import { GoalProvider } from '@/context/GoalContext'
+import Header from '@/components/Header'
+import { Navigation } from '@/components/Navigation'
 
 export default function RootLayout({
   children,
@@ -17,18 +10,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="bg-white dark:bg-dark-primary">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AuthProvider>
-            {children}
-          </AuthProvider>
-        </ThemeProvider>
+    <html lang="en">
+      <body className="bg-white">
+        <GoalProvider>
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Navigation />
+          </div>
+        </GoalProvider>
       </body>
     </html>
   )

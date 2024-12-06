@@ -1,23 +1,28 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
+  apiKey: "AIzaSyA1Qem-0S-Oi2ASaLd06VGJejdgXSMz5Hs",
+  authDomain: "day2mrw.firebaseapp.com",
+  projectId: "day2mrw",
+  storageBucket: "day2mrw.firebasestorage.app",
+  messagingSenderId: "801351267374",
+  appId: "1:801351267374:web:ca956980d041d9e06a1bbf"
 };
 
+// Add debug logging
+console.log('Firebase Config:', firebaseConfig);
+
 const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+
+// Add debug logging for storage
+console.log('Storage bucket after initialization:', storage.app.options.storageBucket);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-export const storage = getStorage(app);
-
-export const firebaseSignOut = signOut;
+export { storage };
 
 export default app; 

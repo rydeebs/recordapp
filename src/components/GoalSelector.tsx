@@ -15,6 +15,7 @@ import {
 import { db } from '@/lib/firebase'
 import { collection, query, where, getDocs } from 'firebase/firestore'
 import { EditGoalDialog } from './EditGoalDialog'
+import { useGoal } from '@/context/GoalContext'
 
 interface Goal {
   id: string;
@@ -25,10 +26,10 @@ interface Goal {
 
 export function GoalSelector() {
   const { user } = useAuthContext();
+  const { selectedGoal, setSelectedGoal } = useGoal();
   const [showLoginDialog, setShowLoginDialog] = useState(false);
   const [goals, setGoals] = useState<Goal[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null)
   const [showEditDialog, setShowEditDialog] = useState(false)
 
   useEffect(() => {
@@ -80,10 +81,13 @@ export function GoalSelector() {
 
   return (
     <div className="w-full max-w-xs">
-      <Select onValueChange={(value) => {
-        const goal = goals.find(g => g.id === value)
-        if (goal) setSelectedGoal(goal)
-      }}>
+      <Select 
+        value={selectedGoal?.id} 
+        onValueChange={(value) => {
+          const goal = goals.find(g => g.id === value)
+          if (goal) setSelectedGoal(goal)
+        }}
+      >
         <SelectTrigger>
           <SelectValue placeholder="Select a goal" />
         </SelectTrigger>
